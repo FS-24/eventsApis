@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Mail;
+namespace App\Mail\Events;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class Verification extends Mailable
+class Notification extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -19,6 +19,7 @@ class Verification extends Mailable
      */
     public function __construct(Array $data)
     {
+        // 
         $this->data = $data;
     }
 
@@ -29,6 +30,7 @@ class Verification extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.verification',['data'=>$this->data]);
+        return $this->from('3wa@gmail.com')
+        ->view('emails.events.notification');
     }
 }

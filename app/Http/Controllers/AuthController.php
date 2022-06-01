@@ -11,8 +11,29 @@ use Illuminate\Support\Facades\Mail;
 
 class AuthController extends Controller
 {
-    //
-
+    
+    
+        
+    /**
+     * register
+     *
+     * @param  mixed $request
+     * 
+     * 
+     * 
+     * @response {
+     * {
+     *      "user": {
+     *  "name": "Anass",
+     *  "email": "anass@gmail.com",
+     *  "updated_at": "2022-05-31T10:01:50.000000Z",
+     *  "created_at": "2022-05-31T10:01:50.000000Z",
+     *  "id": 16
+     *      },
+     *      "token": "6|6UbWPrXanHe3FrsVp0WPODtE6Jots7aaPZs5fSsd"
+     *   }
+     * }
+     */
     public function register(Request $request){
         $credentials = $request->validate([
             'name'=>['required'],
@@ -23,10 +44,10 @@ class AuthController extends Controller
         $data['password'] = bcrypt($data['password']);
         $user = User::create($data);
         if ($user) {
-            Mail::to($user->email)->send(new Verification([
-                'user'=>$user,
-                'url'=>route('email.verification',['id'=>$user->id])
-            ]));
+           Mail::to($user->email)->send(new Verification([
+               'user'=>$user,
+               'url'=>route('email.verification',['id'=>$user->id])
+           ]));
             return response([
                 'user'=>$user,
                 'token'=>$user->createToken('event_api')->plainTextToken

@@ -16,7 +16,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('events', [EventController::class, 'index'])->name('event.all');
+Route::get('events', [EventController::class, 'index'])->name('event.all');;
+Route::post('events/participation', [EventController::class, 'participate'])->name('event.participation');
+Route::get('events/{id}/participants', [EventController::class, 'getParticipantes'])->name('event.participants');
+Route::get('users/{id}/events', [EventController::class, 'getAllEvents'])->name('event.attended');
 Route::post('login', [AuthController::class, 'login'])->name('login');
 Route::post('register', [AuthController::class, 'register'])->name('register');
 Route::get('verification/{id}', [AuthController::class, 'emailVerification'])->name('email.verification');
